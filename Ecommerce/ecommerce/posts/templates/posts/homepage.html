@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+Homepage Ho
+
+
+{% if user.is_authenticated %}
+<a href=" {% url 'users:logout' %} ">Logout</a>
+{%else %}
+    <a href=" {% url 'users:login' %} ">Login</a>
+    <a href="{% url 'users:register' %}">Signup</a>
+{% endif %}
+
+{% endblock %}

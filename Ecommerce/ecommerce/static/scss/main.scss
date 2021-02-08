@@ -1,0 +1,16 @@
+$primary-color: rgb(51, 19, 209);
+$secondary-color: #fff;
+$fonts: Helvetica;
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.test-content{
+    border: #000;
+    border-radius: 30%;
+    color: $primary-color;
+    font-family: $fonts;
+    background-color: #000;
+}
