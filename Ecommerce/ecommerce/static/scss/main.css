@@ -1,3 +1,10 @@
+.login-section {
+  background-color: #4d194d;
+  width: 450px;
+  height: 270px;
+  padding: 30px;
+  border-radius: 15%; }
+
 * {
   margin: 0;
   padding: 0; }

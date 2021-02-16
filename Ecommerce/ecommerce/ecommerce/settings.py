@@ -37,9 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',
-    'posts',
+    #new apps
+    'users.apps.UsersConfig',
+    'posts.apps.PostsConfig',
+
+    #for forms
+    'crispy_forms',
+
+    #for sass processing
     'sass_processor',
+
+    #for cleanup
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
@@ -79,7 +88,7 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
     }
 }
 
@@ -123,7 +132,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR,'static')
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+#meida Paths
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/users/profile_pics/' #for user profile
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
@@ -140,3 +153,14 @@ STATICFILES_FINDERS = [
 
 # Django Redirect Overrides
 LOGIN_REDIRECT_URL = 'posts:homepage'
+LOGIN_URL = 'users:login'
+
+
+#sass include directories
+SASS_PROCESSOR_INCLUDE_DIRS = [
+    # os.path.join(BASE_DIR, SASS_PROCESSOR_ROOT),
+    os.path.join(BASE_DIR, 'static/scss/macro'),
+    os.path.join(BASE_DIR, 'static/scss/utilities'),
+]
+
+

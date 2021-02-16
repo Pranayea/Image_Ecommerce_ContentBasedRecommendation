@@ -1,6 +1,9 @@
-$primary-color: rgb(51, 19, 209);
-$secondary-color: #fff;
-$fonts: Helvetica;
+// importing from utilities
+@import "variables";
+
+
+//importing from macro
+@import "login.scss";
 
 *{
     margin: 0;
