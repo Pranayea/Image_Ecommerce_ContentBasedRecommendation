@@ -43,13 +43,24 @@ INSTALLED_APPS = [
 
     #for forms
     'crispy_forms',
-
+    #for categories,
+    'mptt',
     #for sass processing
     'sass_processor',
 
     #for cleanup
     'django_cleanup.apps.CleanupConfig',
+
+    #for social authentication,
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    #for service provider
+    'allauth.socialaccount.providers.google',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -153,6 +164,7 @@ STATICFILES_FINDERS = [
 
 # Django Redirect Overrides
 LOGIN_REDIRECT_URL = 'posts:homepage'
+LOGOUT_REDIRECT_URL = 'posts:homepage'
 LOGIN_URL = 'users:login'
 
 
@@ -163,4 +175,9 @@ SASS_PROCESSOR_INCLUDE_DIRS = [
     os.path.join(BASE_DIR, 'static/scss/utilities'),
 ]
 
+
+#Account SocialALL AUth
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 

@@ -1,6 +1,7 @@
 {% extends 'index.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
+{% load socialaccount %}
 
 <div class="col-md-8">
   {% if messages %}
@@ -12,19 +13,13 @@
 
 <div class="login-section">
   <form method="post" class="form-inline">
-    {% csrf_token %}
-    <div class="form-group">
-      <label for="formGroupExampleInput">Username</label>
-      <input type="text" class="form-control" name="username" placeholder="Username">
-    </div><br>
+      {% csrf_token %}
 
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" class="form-control" name="password" placeholder="Password">
-    </div><br>
-
+      {{form|crispy}}
+      <br>
     <!-- {{form}} -->
     <input type="submit" value="Login" class="btn btn-outline-primary">
+    <a href="{% provider_login_url "google" %}">Google</a>
     <a href="{% url 'users:register' %}">Sign Up</a>
   </form>
 </div>

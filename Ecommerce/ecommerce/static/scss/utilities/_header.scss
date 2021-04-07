@@ -1,0 +1,34 @@
+.header{
+    height: 75px;
+    background-color: #379683;
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu{
+    display:flex;
+    justify-content:center ;
+    align-items: center;
+    height: 100%;
+    cursor: pointer;
+}
+.menu-items{
+    text-decoration: none;
+    padding: 12px 35px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: black;
+   
+}
+
+.menu-items:hover{
+    border: 1px solid white;
+    background-color: white;
+    color: black;
+}
+
+// .menu-items-item{
+//     color: black;
+// }
+

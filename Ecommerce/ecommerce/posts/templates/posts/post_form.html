@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+{% include 'nav-bar.html' %}
+<div class="post-section">
+  <form method="post" class="form-inline" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      {{form|crispy}}
+      <br>
+    <!-- {{form}} -->
+    <input type="submit" value="Post" class="btn btn-outline-primary">
+  </form>
+</div>
+
+{% endblock %}

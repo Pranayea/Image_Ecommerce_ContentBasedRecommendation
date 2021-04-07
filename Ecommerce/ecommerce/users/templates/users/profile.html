@@ -2,6 +2,8 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
+{% include 'nav-bar.html' %}
+
     <div class="col-md-8">
         {% if messages %}
         {% for message in messages %}
@@ -9,7 +11,9 @@
         {% endfor %}
         {% endif %}
     </div>
-  
+    
+    <a class="btn btn-primary" href="{% url 'posts:post-create' %}">Post Products</a>
+    
 
     <div class="profile-content">
         <div class="profile-content-image">

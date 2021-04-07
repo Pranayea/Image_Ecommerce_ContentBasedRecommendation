@@ -1,19 +1,74 @@
+@charset "UTF-8";
 .login-section {
-  background-color: #4d194d;
+  background-color: #e27a24;
   width: 450px;
   height: 270px;
   padding: 30px;
   border-radius: 15%; }
 
+.posts-contents img {
+  width: 30%;
+  height: 30%; }
+
+.header {
+  height: 75px;
+  background-color: #379683;
+  display: flex;
+  justify-content: space-between; }
+
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  cursor: pointer; }
+
+.menu-items {
+  text-decoration: none;
+  padding: 12px 35px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  color: black; }
+
+.menu-items:hover {
+  border: 1px solid white;
+  background-color: white;
+  color: black; }
+
+.ratingStars {
+  height: auto;
+  padding: 3px 15px; }
+
+.ratingStars:not(:checked) > input {
+  position: absolute;
+  top: -9999px; }
+
+.ratingStars:not(:checked) > label {
+  float: right;
+  width: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 30px;
+  color: #ccc; }
+
+.ratingStars:not(:checked) > label:before {
+  content: '★ '; }
+
+.ratingStars > input:checked ~ label,
+.ratingStars:not(:checked) > label:hover ~ label {
+  color: #deb217; }
+
+.ratingStars > input:checked + label:hover,
+.ratingStars > input:checked + label:hover ~ label,
+.ratingStars > input:checked ~ label:hover,
+.ratingStars > input:checked ~ label:hover ~ label,
+.ratingStars > label:hover ~ input:checked ~ label {
+  color: #c59b08; }
+
 * {
   margin: 0;
   padding: 0; }
-
-.test-content {
-  border: #000;
-  border-radius: 30%;
-  color: #3313d1;
-  font-family: Helvetica;
-  background-color: #000; }
 
 /*# sourceMappingURL=main.css.map */

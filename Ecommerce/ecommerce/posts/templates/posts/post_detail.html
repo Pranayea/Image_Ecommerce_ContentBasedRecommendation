@@ -1,0 +1,34 @@
+{% extends 'index.html' %}
+
+{% block content %}
+{% include 'nav-bar.html' %}
+
+<div class="posts-contents">
+    <h1>{{post.title}}</h1>
+    <p><img src="{{post.image.url}}" alt="{{post.title}}"></p>
+    <p><h3>{{post.description}}</h3></p>
+    <p><h3>{{post.category}}</h3></p>
+    <p>By {{post.user}} on {{post.date|date:"F d, Y"}}</p>
+</div>
+
+<div>
+    {% if post.user == user %}
+        <a href="{% url 'posts:post-update' post.id %}">Update</a>
+        <a href="{% url 'posts:post-delete' post.id %}">Delete</a>
+    {% endif %}
+</div>
+
+<form class="ratingForm" method="post">
+    {% csrf_token %}
+    <div class="ratingStars">
+        <input type="radio" name="rating" id="ratingStar1" value="1"><label for="ratingStar1" title="Unsatisfactory">Unsatisfactory</label>            
+        <input type="radio" name="rating" id="ratingStar2" value="2"><label for="ratingStar2" title="Bad">Bad</label>
+        <input type="radio" name="rating" id="ratingStar3" value="3"><label for="ratingStar3" title="Satisfactory">Satisfactory</label>
+        <input type="radio" name="rating" id="ratingStar4" value="4"><label for="ratingStar4" title="Good">Good</label>
+        <input type="radio" name="rating" id="ratingStar5" value="5"><label for="ratingStar5" title="Excellent">Excellent</label>
+    </div>
+    <input type="text" placeholder="Enter Your Review" name="review">
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}

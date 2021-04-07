@@ -4,16 +4,11 @@
 
 //importing from macro
 @import "login.scss";
+@import "homepage.scss";
+@import "header.scss";
+@import "detailPage.scss";
 
 *{
     margin: 0;
     padding: 0;
-}
-
-.test-content{
-    border: #000;
-    border-radius: 30%;
-    color: $primary-color;
-    font-family: $fonts;
-    background-color: #000;
 }

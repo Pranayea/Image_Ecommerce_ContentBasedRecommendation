@@ -26,7 +26,12 @@
         <input type="password" class="form-control" name="password2" placeholder="Confirm Password">
     </div><br>
 
-    {{form.errors}}
+    <!-- {{form.errors}} -->
+
+
+    <div class="col-md-8">
+        <div class="alert alert-{{ form.errors.tags }}">{{form.errors}}</div>
+  </div>
     <input type="submit" value="Register">
 </form>
 

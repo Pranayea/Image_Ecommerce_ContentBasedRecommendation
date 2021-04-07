@@ -1,0 +1,23 @@
+<div class="header">
+    <div class="logo">
+        <div class="img"></div>
+        <a class="menu-items" href="/">Home</a>
+    </div>
+    
+    
+    <div class="menu">
+    {% if user.is_authenticated %}    
+        {% if user.is_superuser == True %}
+            <a class="menu-items" href='/admin'>Admin</a>
+        {% endif %}
+        <a class="menu-items" href="{% url 'users:profile' %}">Profile</a>
+        <a class="menu-items" href=" {% url 'users:logout' %}">Logout</a>
+
+    {% else %}
+        <a class="menu-items" href=" {% url 'users:login' %} ">Login</a>
+        <a class="menu-items" href="{% url 'users:register' %}">Signup</a>
+    {% endif %}        
+    </div>
+    
+</div>
+
