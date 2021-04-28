@@ -8,7 +8,7 @@
     <p><img src="{{post.image.url}}" alt="{{post.title}}"></p>
     <p><h3>{{post.description}}</h3></p>
     <p><h3>{{post.category}}</h3></p>
-    <p>By {{post.user}} on {{post.date|date:"F d, Y"}}</p>
+    <p>By <a href="{% url 'posts:profile' post.user.id %}">{{post.user}}</a> on {{post.date|date:"F d, Y"}}</p>
 </div>
 
 <div>
@@ -18,17 +18,65 @@
     {% endif %}
 </div>
 
-<form class="ratingForm" method="post">
-    {% csrf_token %}
-    <div class="ratingStars">
-        <input type="radio" name="rating" id="ratingStar1" value="1"><label for="ratingStar1" title="Unsatisfactory">Unsatisfactory</label>            
-        <input type="radio" name="rating" id="ratingStar2" value="2"><label for="ratingStar2" title="Bad">Bad</label>
-        <input type="radio" name="rating" id="ratingStar3" value="3"><label for="ratingStar3" title="Satisfactory">Satisfactory</label>
-        <input type="radio" name="rating" id="ratingStar4" value="4"><label for="ratingStar4" title="Good">Good</label>
-        <input type="radio" name="rating" id="ratingStar5" value="5"><label for="ratingStar5" title="Excellent">Excellent</label>
-    </div>
-    <input type="text" placeholder="Enter Your Review" name="review">
-    <input type="submit" value="Submit">
-</form>
+{% if user.is_authenticated %}
+    <form class="ratingForm" id="ratingForm" action="{% url 'posts:post-detail' post.id %}" method="post">
+        {% csrf_token %}
+        <div class="ratingStars">
+            <input type="radio" name="rating" class="rating" id="ratingStar1" value="5"><label for="ratingStar1" title="Unsatisfactory">Unsatisfactory</label>            
+            <input type="radio" name="rating" class="rating" id="ratingStar2" value="4"><label for="ratingStar2" title="Bad">Bad</label>
+            <input type="radio" name="rating" class="rating" id="ratingStar3" value="3"><label for="ratingStar3" title="Satisfactory">Satisfactory</label>
+            <input type="radio" name="rating" class="rating" id="ratingStar4" value="2"><label for="ratingStar4" title="Good">Good</label>
+            <input type="radio" name="rating" class="rating" id="ratingStar5" value="1"><label for="ratingStar5" title="Excellent">Excellent</label>
+        </div>
+        <input type="text" placeholder="Enter Your Review" id="review" name="review">
+        <input type="submit" value="Submit">
+    </form>
+{% endif %}
 
+
+<!-- now here lies the reviews of each post -->
+{% if postRatings is none %}
+    <h1>No Reviews Given Yet</h1>
+{% else %}
+    {% for review in postRatings %}
+    <div class="user-reviews">
+        <div>{{review.user.username}}</div>
+        <div>{{review.review}}</div>
+        <div class="review-rating pull-right">
+            <i class="fa fa-star {% if review.rating < 1 %} empty {% endif %}"></i>
+            <i class="fa fa-star {% if review.rating < 2 %} empty {% endif %}"></i>
+            <i class="fa fa-star {% if review.rating < 3 %} empty {% endif %}"></i>
+            <i class="fa fa-star {% if review.rating < 4 %} empty {% endif %}"></i>
+            <i class="fa fa-star {% if review.rating < 5 %} empty {% endif %}"></i>
+        </div>
+        <div>{{review.date}}</div>
+    </div>
+    {% endfor %}    
+{% endif %}
+
+{% endblock %}
+
+{% block script %}
+<script>
+    const form = document.getElementById('ratingForm')
+    form.addEventListener("submit",submitHandler);
+
+    function submitHandler(e){
+        e.preventDefault();
+
+        const review = $("#review").val();
+        const rating = $(".rating:checked").val();
+        
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'posts:post-detail' post.id%}",
+            data: $("#ratingForm").serialize(),
+            dataType: 'json',
+            success: function(data){
+                console.log(data)
+                form.reset();
+            }
+        })
+    }
+</script>
 {% endblock %}

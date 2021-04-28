@@ -1,4 +1,6 @@
-
+.user-reviews{
+    color: white;
+}
 
 .ratingStars{
     height: auto;
@@ -38,3 +40,10 @@
     color: #c59b08;
 }
 
+.fa-star{
+    color: #FFB656;
+}
+
+.fa-star.empty{
+    color: #DADADA;
+}

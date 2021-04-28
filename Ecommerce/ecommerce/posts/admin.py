@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post,Categories
+from .models import Post,Categories,Review
 # Register your models here.
 @admin.register(Post)
 class AdminPost(admin.ModelAdmin):
@@ -7,3 +7,4 @@ class AdminPost(admin.ModelAdmin):
 
 
 admin.site.register(Categories)
+admin.site.register(Review)

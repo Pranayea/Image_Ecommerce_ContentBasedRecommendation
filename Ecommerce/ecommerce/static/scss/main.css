@@ -1,40 +1,76 @@
 @charset "UTF-8";
+.header {
+  width: 100%;
+  min-height: 50px;
+  background-color: #05386B;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.menu {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer; }
+  .menu-items {
+    min-height: 100%;
+    padding: 10px 25px;
+    align-items: center;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    color: white; }
+
+.logo {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer; }
+  .logo-items {
+    min-height: 100%;
+    padding: 10px 25px;
+    align-items: center;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+    color: white; }
+
+.search-bar {
+  min-height: 100%;
+  flex: 2;
+  margin-left: 250px; }
+  .search-bar input[type=text] {
+    width: 70%;
+    border: 1px solid #5CDB95;
+    border-radius: 5px;
+    box-sizing: border-box; }
+  .search-bar input[type=submit] {
+    width: 10%;
+    border: none;
+    border-radius: 5px;
+    background-color: #5CDB95;
+    color: white;
+    box-sizing: border-box; }
+
 .login-section {
-  background-color: #e27a24;
   width: 450px;
   height: 270px;
   padding: 30px;
   border-radius: 15%; }
 
-.posts-contents img {
-  width: 30%;
-  height: 30%; }
+.posts-contents {
+  color: white; }
+  .posts-contents img {
+    width: 30%;
+    height: 30%; }
 
-.header {
-  height: 75px;
-  background-color: #379683;
-  display: flex;
-  justify-content: space-between; }
+.main-content {
+  background-color: #222629; }
 
-.menu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  cursor: pointer; }
-
-.menu-items {
-  text-decoration: none;
-  padding: 12px 35px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  color: black; }
-
-.menu-items:hover {
-  border: 1px solid white;
-  background-color: white;
-  color: black; }
+.user-reviews {
+  color: white; }
 
 .ratingStars {
   height: auto;
@@ -66,6 +102,12 @@
 .ratingStars > input:checked ~ label:hover ~ label,
 .ratingStars > label:hover ~ input:checked ~ label {
   color: #c59b08; }
+
+.fa-star {
+  color: #FFB656; }
+
+.fa-star.empty {
+  color: #DADADA; }
 
 * {
   margin: 0;

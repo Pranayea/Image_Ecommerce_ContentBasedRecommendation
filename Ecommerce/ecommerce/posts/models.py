@@ -28,9 +28,10 @@ class Post(models.Model):
 
 class Review(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
+    post = models.ForeignKey(Post,on_delete=models.CASCADE)
     review = models.CharField(max_length=100,null=True)
     rating = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        self.rating
+        return str(self.review)

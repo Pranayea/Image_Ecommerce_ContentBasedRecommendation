@@ -1,12 +1,12 @@
 // importing from utilities
-@import "variables";
+@import "utilities/variables";
+@import "utilities/nav.scss";
 
 
 //importing from macro
-@import "login.scss";
-@import "homepage.scss";
-@import "header.scss";
-@import "detailPage.scss";
+@import "macro/login.scss";
+@import "macro/homepage.scss";
+@import "macro/detailPage.scss";
 
 *{
     margin: 0;
