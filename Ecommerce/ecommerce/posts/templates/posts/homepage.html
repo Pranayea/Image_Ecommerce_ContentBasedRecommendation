@@ -3,24 +3,40 @@
 {% block content %}
 {% include 'nav-bar.html' %}
 
-<ul>
-     <h2>Category</h2>
-    {% for cat in categories %}
-        {% if not cat.children.all %}
-            <a href="{% url 'posts:category' cat.id%}">{{cat.name}}</a>
-        {% else %}
-        <a href="{% url 'posts:category' cat.id%}">{{cat.name}}</a>
-        {% endif %}
+<div class="category">
+    <ul>
+        {% for cat in categories %}
+            {% if not cat.children.all %}
+                <a class="category-items" href="{% url 'posts:category' cat.id%}">{{cat.name}}</a>
+            {% else %}
+            <a class="category-items" href="{% url 'posts:category' cat.id%}">{{cat.name}}</a>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+
+
+<div class="col-md-8">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{message}}</div>
+      {% endfor %}
+    {% endif %}
+  </div>
+  
+
+<div class="posts">
+    {% for post in posts %}    
+        <div class="posts-contents">
+            <div class="posts-wrapper">
+                <a href="{% url 'posts:post-detail' post.id %}"><img src="{{post.image.url}}" alt="{{post.title}}"></a>
+                <h5 class="title">{{post.title}} </h5>
+                <p>Rs. {{post.price}}</p>
+                <p>By <a href="{% url 'posts:profile' post.user.id %}">{{post.user}}</a> on {{post.date|date:"F d, Y"}}</p>
+            </div>    
+        </div>
     {% endfor %}
-</ul>
-
-{% for post in posts %}
-    <div class="posts-contents">
-        <h1>{{post.title}}</h1>
-        <p><a href="{% url 'posts:post-detail' post.id %}"><img src="{{post.image.url}}" alt="{{post.title}}"></a></p>
-        <p>By <a href="{% url 'posts:profile' post.user.id %}">{{post.user}}</a> on {{post.date|date:"F d, Y"}}</p>
-    </div>
-{% endfor %}
-
+</div>
 {% include 'pagination.html' %}
+
 {% endblock %}

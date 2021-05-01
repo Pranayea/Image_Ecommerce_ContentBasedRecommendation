@@ -3,12 +3,17 @@
 {% block content %}
 {% include 'nav-bar.html' %}
 
-<div class="posts-contents">
+
+<div class="detail-contents">
     <h1>{{post.title}}</h1>
-    <p><img src="{{post.image.url}}" alt="{{post.title}}"></p>
+    <p><img src="{{post.image.url}}" alt="{{post.title}}" class="post-image"></p>
     <p><h3>{{post.description}}</h3></p>
     <p><h3>{{post.category}}</h3></p>
     <p>By <a href="{% url 'posts:profile' post.user.id %}">{{post.user}}</a> on {{post.date|date:"F d, Y"}}</p>
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'cart:add-to-cart' post.id%}"><button>Add to Cart</button></a>
+    {% endif %}
 </div>
 
 <div>

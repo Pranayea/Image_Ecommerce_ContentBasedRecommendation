@@ -1,0 +1,53 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">No.</th>
+        <th scope="col">Products</th>
+        <th scope="col">Price</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in order.get_cart_items %}  
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{item.product.title}}</td>
+        <td>{{item.product.price}}</td>
+        <td><a href="{% url 'cart:delete-from-cart' item.id %}" onclick="return confirm_delete()"><i class="bi bi-trash"></i></a></td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td>You have no Items Here</td>
+      </tr>
+      {% endfor %}
+      <tr>
+      {% if order.get_cart_total != None %}
+          <td>
+            <strong>Order Total:</strong>
+          </td>
+          <td>
+            {{order.get_cart_total}}
+          </td>
+      {% endif %}
+        </tr>
+      </tbody> 
+      <span>
+        {% if order.get_cart_items %}
+          <a href="{% url 'cart:checkout' %}"><button>Proceed to Checkout</button></a>
+        {% endif %}
+      </span>
+  </table>
+
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    function confirm_delete(){
+      return confirm("Do you want to remove this product from cart?");
+    }
+  </script>
+{% endblock %}

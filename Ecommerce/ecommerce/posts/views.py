@@ -17,7 +17,7 @@ class HomeListView(ListView):
     template_name = "posts/homepage.html"
     context_object_name = 'posts'
     ordering = ['-date']
-    paginate_by = 3
+    paginate_by = 15
 
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
@@ -122,7 +122,9 @@ def show_categories(request,pk):
 
 def SearchFunction(request):
     query = request.GET['q']
-    results = []
+    results = Post.objects.none()
+    sorting = request.GET.get('sorting','-date')
+
     if query == "":
         messages.warning(request,"Please Enter A Search Field")
     else:
@@ -134,8 +136,9 @@ def SearchFunction(request):
             )
  
     context={
-        'results':results,
-        'query':query
+        'results':results.order_by(sorting),
+        'query':query,
+        'sorting':sorting
     }
     template = 'posts/search_results.html'
 

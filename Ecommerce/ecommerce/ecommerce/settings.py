@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     #new apps
     'users.apps.UsersConfig',
     'posts.apps.PostsConfig',
+    'cart.apps.CartConfig',
 
     #for forms
     'crispy_forms',

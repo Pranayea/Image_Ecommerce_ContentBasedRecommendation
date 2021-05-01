@@ -8,7 +8,6 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     product = models.ManyToManyField(Post,blank=True)
     image = models.ImageField(default='users/profile_pics/default.jpg',upload_to='users/profile_pics/')
-    fund = models.IntegerField(default=0)
 
     def __str__(self):
         return f'{self.user.username} Profile'
