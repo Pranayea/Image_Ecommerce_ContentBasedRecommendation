@@ -120,12 +120,8 @@
       height: 70%;
       object-fit: cover; }
 
-.post-image {
-  width: 30%;
-  height: 30%; }
-
 .user-reviews {
-  color: white; }
+  color: black; }
 
 .ratingStars {
   height: auto;

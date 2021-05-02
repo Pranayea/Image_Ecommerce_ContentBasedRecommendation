@@ -25,14 +25,50 @@
         </div>
     </div>
 
-    <div class="profile-forms">
-        <div>
-            <form method="POST" enctype="multipart/form-data">
-                {%csrf_token%}
-                {{u_form|crispy}}
-                {{p_form|crispy}}
-                <input type="submit" value="Update Profile">
-            </form>
-        </div>
+    <div class="" data-toggle="modal" data-target=".profile-form" >
+        <button><i class="bi bi-gear-wide"></i></button>
+    </div>  
     </div>
+
+    <div class="modal fade profile-form" tabindex="-1" role="dialog"
+aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
+<div class="modal-dialog">
+
+   <!-- Modal Content: begins -->
+   <div class="modal-content">
+
+       <!-- Modal Header -->
+       <div class="modal-header">
+           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span></button>
+       </div>
+
+       <!-- Modal Body -->
+       <div class="modal-body">
+           <div class="body-message">
+
+                <form class="create-form">
+                    {%csrf_token%}
+                    {{u_form|crispy}}
+                    {{p_form|crispy}}
+                    <input type="submit" value="Update Profile">
+               </form>
+           </div>
+       </div>
+
+
+   </div>
+   <!-- Modal Content: ends -->
+
+   <style>
+       .modal input{
+        width: 94%;
+       }
+
+       .modal-body{
+           padding-left: 20px;
+       }
+   </style>
+
 {% endblock %}
