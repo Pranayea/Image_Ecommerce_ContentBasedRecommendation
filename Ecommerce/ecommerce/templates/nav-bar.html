@@ -1,36 +1,39 @@
-<div class="header">
-
-<nav class="top-nav">
-    <div class="menu">
-        {% if user.is_authenticated %}
-        {% if user.is_superuser == True %}
-        <a class="menu-items" href='/admin'>Admin</a>
-        {% endif %}
-        <a class="menu-items" href="{% url 'users:profile' %}">Profile</a>
-        <a class="menu-items" href=" {% url 'users:logout' %}">Logout</a>
-
-        {% else %}
-        <a class="menu-items" href=" {% url 'users:login' %} ">Login</a>
-        <a class="menu-items" href="{% url 'users:register' %}">Signup</a>
-        {% endif %}
-    </div>
-</nav>
-
-<nav class="bottom-nav">
-    <div class="logo">
-        <div class="img"></div>
-        <a class="logo-items" href="/">Home</a>
+<div class="container-fluid">
+    <div class="row  justify-content-end menu">
+        <div class="col-9"></div>
+            {% if user.is_authenticated %}
+            {% if user.is_superuser == True %}
+            <a class="col-1 menu-items" href='/admin'>Admin</a>
+            {% endif %}
+            <a class="col-1 menu-items" href="{% url 'users:profile' %}">Profile</a>
+            <a class="col-1 menu-items" href=" {% url 'users:logout' %}">Logout</a>
+    
+            {% else %}
+            <a class="col-1 menu-items" href=" {% url 'users:login' %} ">Login</a>
+            <a class="col-1 menu-items" href="{% url 'users:register' %}">Signup</a>
+            {% endif %}
     </div>
 
-    <div class="search-bar">
-        <form action="{% url 'posts:search' %}" method="get">
-            <input name="q" type="text" placeholder="Search..."><button type="submit"><i class="bi bi-search"></i></button>
-        </form>
-    </div>
+    <div class="row justify-content-end bottom-row">        
+        <div class="col-3 logo">
+            <div class="img"></div>
+            <a class="logo-items" href="/">Home</a>
+        </div>
 
-    <div class="cart">
-        <a href="{% url 'cart:order-summary' %}"><i class="bi bi-cart2"></i></a>
+        <div class="col-7 search-bar">
+            <form action="{% url 'posts:search' %}" method="get">
+                <input name="q" type="text" placeholder="Search..."><button type="submit"><i class="bi bi-search"></i></button>
+            </form>
+        </div>
+
+        <div class="col-1 cart">
+            <a href="{% url 'cart:order-summary' %}"><i class="bi bi-cart2"></i></a>
+        </div>
+        <div class="col-1">
+            {% if user.is_authenticated %}  
+                <h6>{{user.username}}</h6>
+            {% endif %}
+        </div>
     </div>
-</nav>
 
 </div>

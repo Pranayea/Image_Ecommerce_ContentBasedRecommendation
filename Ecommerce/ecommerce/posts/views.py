@@ -3,6 +3,8 @@ from django.views.generic import ListView,DetailView,CreateView,UpdateView,Delet
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from .models import Post,Categories,Review
 from django.contrib.auth.models import User
+from users.models import Profile
+from cart.models import Order
 from django.contrib import messages
 from .forms import CreatePost, ReviewForm
 from django.utils.text import slugify 
@@ -12,23 +14,44 @@ from django.db.models import Avg,Q
 # Create your views here.
 
 #homepage
-class HomeListView(ListView):
-    model = Post
-    template_name = "posts/homepage.html"
-    context_object_name = 'posts'
-    ordering = ['-date']
-    paginate_by = 15
-
-    def get_context_data(self,**kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = Categories.objects.all()
-        context['title'] = 'Homepage'
-        return context
-
-#DetailViews For each products
-# class PostDetail(DetailView):
+# class HomeListView(ListView):
 #     model = Post
+#     template_name = "posts/homepage.html"
+#     context_object_name = 'posts'
+#     ordering = ['-date']
+#     paginate_by = 15
 
+#     def get_context_data(self,**kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['categories'] = Categories.objects.all()
+#         context['title'] = 'Homepage'
+#         return context
+
+def HomeList(request):
+    posts = Post.objects.all()
+    categories = Categories.objects.all()
+    filtered_orders = Order.objects.filter(owner=request.user.profile, is_ordered=False)
+    current_order_products = []
+    if filtered_orders.exists():
+        user_order = filtered_orders[0]
+        user_order_items = user_order.items.all()
+        current_order_products = [product.product for product in user_order_items]
+
+    paginator = Paginator(posts,2)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context ={
+        'posts':posts,
+        'categories':categories,
+        'current_order_products': current_order_products,
+        'title':'Homepage',
+        'page_obj': page_obj
+    }
+
+    return render(request,"posts/homepage.html",context)
+
+#DetailViews For each products    
 def PostDetail(request,pk):
     # for the detail view of posts/products
     post = get_object_or_404(Post, pk=pk)
@@ -37,6 +60,7 @@ def PostDetail(request,pk):
     postRatings = Review.objects.filter(post=pk).order_by('-date')
     avgRate = postRatings.aggregate(Avg('rating')).get('rating_avg')
 
+    #for checking if the product is owned by user or not
     # for review management
     if request.is_ajax():
         if form.is_valid():

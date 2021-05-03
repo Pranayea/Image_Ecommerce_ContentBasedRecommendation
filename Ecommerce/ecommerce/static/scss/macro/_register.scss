@@ -1,0 +1,19 @@
+.register-wrapper{
+    display: flex;
+    flex-direction: row;
+}
+
+.register-banner{
+    width: 70%;
+    min-height: 70%;
+    float: right;
+}
+
+.register-form{
+    margin-top: 80px;
+    padding: 15px;
+    width: 30%;
+    height: 10%;
+    border: .5px solid $support-color;
+    float: left;
+}

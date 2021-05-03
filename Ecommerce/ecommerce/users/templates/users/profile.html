@@ -2,9 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-{% include 'nav-bar.html' %}
-
-    <div class="col-md-8">
+    <div class="col-12">
         {% if messages %}
         {% for message in messages %}
             <div class="alert alert-{{ message.tags }}">{{message}}</div>
@@ -12,26 +10,33 @@
         {% endif %}
     </div>
     
-    <a class="btn btn-primary" href="{% url 'posts:post-create' %}">Post Products</a>
     
+<div class="container">
+        <div class="row">
+            
+            <div class="col-8 profile-content">
+                <div class="profile-content-image">
+                    <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="This is Profile Pic">
+                    <div class="profile-content-body">
+                        <h2 class="account-heading">{{ user.username}}</h2>
+                        <p class=text-secondary>{{ user.email }}</p>
+                    </div>
+                </div>
+            </div>
 
-    <div class="profile-content">
-        <div class="profile-content-image">
-            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="This is Profile Pic">
-            <div class="profile-content-body">
-                <h2 class="account-heading">{{ user.username}}</h2>
-                <p class=text-secondary>{{ user.email }}</p>
+            <div class="col-4">
+                    <a href="{% url 'posts:post-create' %}"><button class="btn btn-primary">Post</button></a>
+
+                <div class="" data-toggle="modal" data-target=".profile-form" >
+                    <button><i class="bi bi-gear-wide"></i></button>
+                </div>  
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="" data-toggle="modal" data-target=".profile-form" >
-        <button><i class="bi bi-gear-wide"></i></button>
-    </div>  
-    </div>
+</div>
 
     <div class="modal fade profile-form" tabindex="-1" role="dialog"
-aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    aria-labelledby="myLargeModalLabel" aria-hidden="true">
 
 <div class="modal-dialog">
 

@@ -1,9 +1,9 @@
 {% extends 'index.html' %}
 
 {% block content %}
-{% include 'nav-bar.html' %}
 
-<div class="col-md-8">
+
+<div class="col-12">
     {% if messages %}
       {% for message in messages %}
         <div class="alert alert-{{ message.tags }}">{{message}}</div>

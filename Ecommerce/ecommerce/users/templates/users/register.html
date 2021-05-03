@@ -1,40 +1,53 @@
 {% extends 'index.html' %}
-
+{% load static %}
 {% block content %}
 
-<form  method="post">
-    {% csrf_token %}
-    <!-- {{ form }} -->
+{% include 'nav-bar.html' %}
 
-    <div class="form-group">
-        <label for="formGroupExampleInput">Username</label>
-        <input type="text" class="form-control" name="username" placeholder="Username">
-    </div><br>
-
-    <div class="form-group">
-        <label for="formGroupExampleInput">Email</label>
-        <input type="email" class="form-control" name="email" placeholder="Email">
-      </div><br>
-
-      <div class="form-group">
-        <label for="formGroupExampleInput">Password</label>
-        <input type="password" class="form-control" name="password1" placeholder="Password">
-      </div><br>
-
-    <div class="form-group">
-        <label for="formGroupExampleInput">Password Confirmation</label>
-        <input type="password" class="form-control" name="password2" placeholder="Confirm Password">
-    </div><br>
-
-    <!-- {{form.errors}} -->
-
-
-    <div class="col-md-8">
-        <div class="alert alert-{{ form.errors.tags }}">{{form.errors}}</div>
+<div class="register-wrapper">
+  <div class="register-banner">
+    <img src="{% static 'svg/personal_information.svg' %}" alt="Personal Information">
   </div>
-    <input type="submit" value="Register">
-</form>
+  
+  
+  <div class="register-form">
+    <form  method="post">
+      {% csrf_token %}
+      <!-- {{ form }} -->
+  
+      <div class="form-group">
+          <label for="formGroupExampleInput">Username</label>
+          <input type="text" class="form-control" name="username" placeholder="Username">
+      </div><br>
+  
+      <div class="form-group">
+          <label for="formGroupExampleInput">Email</label>
+          <input type="email" class="form-control" name="email" placeholder="Email">
+        </div><br>
+  
+        <div class="form-group">
+          <label for="formGroupExampleInput">Password</label>
+          <input type="password" class="form-control" name="password1" placeholder="Password">
+        </div><br>
+  
+      <div class="form-group">
+          <label for="formGroupExampleInput">Password Confirmation</label>
+          <input type="password" class="form-control" name="password2" placeholder="Confirm Password">
+      </div><br>
+  
+      <!-- {{form.errors}} -->
+  
+  
+    <div class="col-md-8">
+          <div class="alert alert-{{ form.errors.tags }}">{{form.errors}}</div>
+    </div>
+      <input type="submit" value="Register">
+  </form>
+  
+  <a href="{% url 'users:login' %}">Sign In</a>
+  
+  </div>
+</div>
 
-<a href="{% url 'users:login' %}">Sign In</a>
 
 {% endblock %}

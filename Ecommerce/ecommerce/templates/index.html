@@ -1,4 +1,5 @@
 {% load sass_tags %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,6 +31,10 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
+
+    {% include 'nav-bar.html' %}
+
+    <br>
     <div class="main-content">
         {% block content %}
         {% endblock %}

@@ -1,68 +1,39 @@
-.top-nav{
-    width: 100%;
+.menu{
     height: 20px;
     background-color: $background-color;
-    display: flex;
-    justify-content: flex-end;
-    font-size: 15px;
-    border-bottom: 1px solid $primary-color;
+    border-bottom: 1px solid $primary-color;    
+
 }
 
-.bottom-nav{
-    width: 100%;
-    min-height: 80px;
-    background-color: $background-color;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid $primary-color;
+.bottom-row{
+    padding-top: 10px;
+    padding-bottom: -5px;
 }
 
-
-.menu{
-    min-height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-
-    &-items{
-        color: $primary-color;
-        min-height: 100%;
-        padding: 10px 25px;
-        align-items: center;
-        text-decoration: none;
-        display: inline-block;
-        border: none;
-        color: $font-color;
-    }
+.menu-items{
+    padding: 1px;
+    color: $font-color;
+    cursor:pointer;
+    text-decoration: none;
+    
 }
 
 
 .logo{
-    min-height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     cursor: pointer;
 
     &-items{
         min-height: 100%;
         padding: 10px 25px;
-        align-items: center;
         text-decoration: none;
-        display: inline-block;
         border: none;
-        color: $primary-color;
+        color: black;
     }
 }
 
 
-.search-bar{
-    min-height: 100%;
-    flex: 2;
-    margin-left: 250px;
 
+.search-bar{
 
     input[type=text]{
         width:70%;
@@ -85,11 +56,12 @@
 }
 
 .cart{
-    padding:10px;
-    font-size: 30px;
-    color: $primary-color;
+    padding-left:10px;
+    font-size: 25px;
 }
 
 .menu-items:hover{
+    text-decoration: none;
     color: $secondary-color;
+    
 }

@@ -1,67 +1,83 @@
 {% extends 'index.html' %}
 
 {% block content %}
-{% include 'nav-bar.html' %}
 
-
-<div class="-detail-posts">    
-    <div class="detail-posts-contents">
-        <div class="detail-posts-wrapper">
-            <a href="{% url 'posts:post-detail' post.id %}"><img src="{{post.image.url}}" alt="{{post.title}}"></a>
-            <h5 class="title">{{post.title}} </h5>
-            <p>Rs. {{post.price}}</p>
-            <p>By <a href="{% url 'posts:profile' post.user.id %}">{{post.user}}</a> on {{post.date|date:"F d, Y"}}</p>
-        </div>    
+<div class="container-fluid detail">
+    <div class="row">
+        <div class="col-12 detail-posts">    
+            <div class="detail-posts-contents">
+                <div class="detail-posts-wrapper">
+                    <img src="{{post.image.url}}" alt="{{post.title}}">
+                    <h5 class="title">{{post.title}} </h5>
+                    <p>Rs. {{post.price}}</p>
+                    <p></p>By <a href="{% url 'posts:profile' post.user.id %}">{{post.user}}</a> on {{post.date|date:"F d, Y"}}</p>
+                </div>    
+            </div>
+        </div>
+        
+        <div class="col-12 ">
+            {% if post.user == user %}
+                <a href="{% url 'posts:post-update' post.id %}"><button class="btn-info">Update</button></a>
+                <a href="{% url 'posts:post-delete' post.id %}"><button class="btn-danger">Delete</button></a>
+            {% endif %}
+        </div>
+        
+        <h4>Post  Review:</h4>
+        <div class="col user-ratings-form">
+            {% if user.is_authenticated %}
+            <form class="ratingForm" id="ratingForm" action="{% url 'posts:post-detail' post.id %}" method="post">
+                {% csrf_token %}
+                <div class="ratingStars">
+                    <input type="radio" name="rating" class="rating" id="ratingStar1" value="5"><label for="ratingStar1" title="Unsatisfactory">Unsatisfactory</label>            
+                    <input type="radio" name="rating" class="rating" id="ratingStar2" value="4"><label for="ratingStar2" title="Bad">Bad</label>
+                    <input type="radio" name="rating" class="rating" id="ratingStar3" value="3"><label for="ratingStar3" title="Satisfactory">Satisfactory</label>
+                    <input type="radio" name="rating" class="rating" id="ratingStar4" value="2"><label for="ratingStar4" title="Good">Good</label>
+                    <input type="radio" name="rating" class="rating" id="ratingStar5" value="1"><label for="ratingStar5" title="Excellent">Excellent</label>
+                </div>
+                <div class="ratingForm-input">
+                    <input type="text" placeholder="Enter Your Review" id="review" name="review">
+                    <input type="submit" value="Submit">
+                </div>
+            </form>
+        {% endif %}
+        </div>
     </div>
-    <a href="{% url 'cart:add-to-cart' post.id %}"><button>Add to Cart</button></a>
+    
+    <div class="row detail-user-ratings">
+        <h3>User Reviews:</h3>
+        <!-- now here lies the reviews of each post -->
+        {% if postRatings is none %}
+        <h1 class="col-12">No Reviews Given Yet</h1>
+        {% else %}
+        {% for review in postRatings %}
+        <div class="col-10 user-reviews">
+            <div class="row">
+                <div class="col">
+                    <strong>{{review.user.username}}</strong><br>
+                    {{review.review}}
+                </div>
+                <div class="col review-rating pull-right">
+                    <i class="fa fa-star {% if review.rating < 1 %} empty {% endif %}"></i>
+                    <i class="fa fa-star {% if review.rating < 2 %} empty {% endif %}"></i>
+                    <i class="fa fa-star {% if review.rating < 3 %} empty {% endif %}"></i>
+                    <i class="fa fa-star {% if review.rating < 4 %} empty {% endif %}"></i>
+                    <i class="fa fa-star {% if review.rating < 5 %} empty {% endif %}"></i>
+                </div>
+                <div class="col">{{review.date}}</div>
+            </div>
+        </div>
+        {% endfor %}    
+    </div>
+
 </div>
 
-<div>
-    {% if post.user == user %}
-        <a href="{% url 'posts:post-update' post.id %}">Update</a>
-        <a href="{% url 'posts:post-delete' post.id %}">Delete</a>
-    {% endif %}
-</div>
-
-{% if user.is_authenticated %}
-    <form class="ratingForm" id="ratingForm" action="{% url 'posts:post-detail' post.id %}" method="post">
-        {% csrf_token %}
-        <div class="ratingStars">
-            <input type="radio" name="rating" class="rating" id="ratingStar1" value="5"><label for="ratingStar1" title="Unsatisfactory">Unsatisfactory</label>            
-            <input type="radio" name="rating" class="rating" id="ratingStar2" value="4"><label for="ratingStar2" title="Bad">Bad</label>
-            <input type="radio" name="rating" class="rating" id="ratingStar3" value="3"><label for="ratingStar3" title="Satisfactory">Satisfactory</label>
-            <input type="radio" name="rating" class="rating" id="ratingStar4" value="2"><label for="ratingStar4" title="Good">Good</label>
-            <input type="radio" name="rating" class="rating" id="ratingStar5" value="1"><label for="ratingStar5" title="Excellent">Excellent</label>
-        </div>
-        <input type="text" placeholder="Enter Your Review" id="review" name="review">
-        <input type="submit" value="Submit">
-    </form>
-{% endif %}
 
 
-<!-- now here lies the reviews of each post -->
-{% if postRatings is none %}
-    <h1>No Reviews Given Yet</h1>
-{% else %}
-    {% for review in postRatings %}
-    <div class="user-reviews">
-        <div>{{review.user.username}}</div>
-        <div>{{review.review}}</div>
-        <div class="review-rating pull-right">
-            <i class="fa fa-star {% if review.rating < 1 %} empty {% endif %}"></i>
-            <i class="fa fa-star {% if review.rating < 2 %} empty {% endif %}"></i>
-            <i class="fa fa-star {% if review.rating < 3 %} empty {% endif %}"></i>
-            <i class="fa fa-star {% if review.rating < 4 %} empty {% endif %}"></i>
-            <i class="fa fa-star {% if review.rating < 5 %} empty {% endif %}"></i>
-        </div>
-        <div>{{review.date}}</div>
-    </div>
-    {% endfor %}    
 {% endif %}
 
 {% endblock %}
 
-{% block script %}
+<!-- {% block script %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
     const form = document.getElementById('ratingForm')
     form.addEventListener("submit",submitHandler);
@@ -84,4 +100,4 @@
         })
     }
 </script>
-{% endblock %}
+{% endblock %} -->

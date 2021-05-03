@@ -1,42 +1,56 @@
 {% extends 'index.html' %}
 
 {% block content %}
-{% include 'nav-bar.html' %}
-
-<div class="category">
-    <ul>
-        {% for cat in categories %}
-            {% if not cat.children.all %}
-                <a class="category-items" href="{% url 'posts:category' cat.id%}">{{cat.name}}</a>
-            {% else %}
-            <a class="category-items" href="{% url 'posts:category' cat.id%}">{{cat.name}}</a>
-            {% endif %}
-        {% endfor %}
-    </ul>
-</div>
 
 
-<div class="col-md-8">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 category">
+            <ul>
+                {% for cat in categories %}
+                    {% if not cat.children.all %}
+                        <a class="category-items" href="{% url 'posts:category' cat.id%}">{{cat.name}}</a>
+                    {% else %}
+                    <a class="category-items" href="{% url 'posts:category' cat.id%}">{{cat.name}}</a>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        
+        
+<div class="col-12">
     {% if messages %}
-      {% for message in messages %}
+        {% for message in messages %}
         <div class="alert alert-{{ message.tags }}">{{message}}</div>
-      {% endfor %}
+        {% endfor %}
     {% endif %}
-  </div>
-  
-
+</div>
+        
+<br>
 <div class="posts">
     {% for post in posts %}    
         <div class="posts-contents">
             <div class="posts-wrapper">
                 <a href="{% url 'posts:post-detail' post.id %}"><img src="{{post.image.url}}" alt="{{post.title}}"></a>
-                <h5 class="title">{{post.title}} </h5>
-                <p>Rs. {{post.price}}</p>
-                <p>By <a href="{% url 'posts:profile' post.user.id %}">{{post.user}}</a> on {{post.date|date:"F d, Y"}}</p>
+                <div class="post-description">
+                    <h6><a  class="title" href="{% url 'posts:post-detail' post.id %}">{{post.title}} </a></h6>
+                    <h6><strong>Rs. {{post.price}}</strong></h6>
+                    {% if post in user.profile.product.all %}
+                        You own this <a href="{{post.image.url}}" download><button class="btn-secondary">Download</button></a>
+                    {% elif post in current_order_products %}
+                    <a href="{% url 'cart:order-summary'%}"><button class="btn-primary">Go to Cart</button></a>
+                    {% else %}
+                    <a href="{% url 'cart:add-to-cart' post.id %}"><button class="btn-primary">Add to Cart</button></a>
+                    {% endif %}
+                </div>
             </div>    
         </div>
     {% endfor %}
 </div>
-{% include 'pagination.html' %}
+    {% include 'pagination.html' %}
+</div>
+</div>
+
+
 
 {% endblock %}
