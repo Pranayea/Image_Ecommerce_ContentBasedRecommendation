@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from .models import Post,Categories,Review
@@ -14,21 +14,8 @@ from django.db.models import Avg,Q
 # Create your views here.
 
 #homepage
-# class HomeListView(ListView):
-#     model = Post
-#     template_name = "posts/homepage.html"
-#     context_object_name = 'posts'
-#     ordering = ['-date']
-#     paginate_by = 15
-
-#     def get_context_data(self,**kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['categories'] = Categories.objects.all()
-#         context['title'] = 'Homepage'
-#         return context
-
 def HomeList(request):
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-date')
     categories = Categories.objects.all()
     filtered_orders = Order.objects.filter(owner=request.user.profile, is_ordered=False)
     current_order_products = []
@@ -58,21 +45,23 @@ def PostDetail(request,pk):
     template = "posts/post_detail.html"
     form = ReviewForm(request.POST)
     postRatings = Review.objects.filter(post=pk).order_by('-date')
-    avgRate = postRatings.aggregate(Avg('rating')).get('rating_avg')
+    avgRate = postRatings.aggregate(Avg('rating')).get('rating__avg')
 
     #for checking if the product is owned by user or not
     # for review management
-    if request.is_ajax():
+    if request.method == "POST":
+        reviews = ReviewForm(request.POST)
+
         if form.is_valid():
-            rating = Review()
-            rating.user = request.user
-            rating.post = Post.objects.get(pk=pk)
-            rating.review = form.cleaned_data['review']
-            rating.rating = form.cleaned_data['rating']
-            rating.save()
-            return JsonResponse({
-                'msg':'Success'
-            })
+            obj = reviews.save(commit=False)
+            obj.user = request.user
+            obj.post = Post.objects.get(pk=pk)
+            obj.review = form.cleaned_data['review']
+            obj.rating = form.cleaned_data['rating']
+            obj.save()
+            return redirect('posts:post-detail',pk=post.pk)
+        else:
+            reviews = ReviewForm()
     context = {
         'post': post,
         'postRatings': postRatings,
@@ -139,7 +128,13 @@ def userProfile(request,pk):
 def show_categories(request,pk):
     categories = get_object_or_404(Categories,pk=pk)
     posts = Post.objects.filter(category=pk)
-    context = {'categories':categories,'posts':posts}
+
+    paginator = Paginator(posts,2)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+
+    context = {'categories':categories,'posts':posts,'page_obj':page_obj}
     return render(request,'posts/categories.html',context)
 
 
@@ -158,14 +153,20 @@ def SearchFunction(request):
             results = Post.objects.filter(
                 Q(title__icontains=query) | Q(description__icontains=query) | Q(user__username__icontains=query) | Q(category__name__icontains=query)
             )
+            paginator = Paginator(results,2)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
  
     context={
         'results':results.order_by(sorting),
         'query':query,
-        'sorting':sorting
+        'sorting':sorting,
+        'page_obj':page_obj
     }
     template = 'posts/search_results.html'
 
     return render(request,template,context)
 
         
+def recommend_page(request):
+    return render(request,"posts/recommendation.html")

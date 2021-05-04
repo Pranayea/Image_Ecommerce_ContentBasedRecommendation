@@ -10,5 +10,6 @@ urlpatterns = [
     path('posts/<int:pk>/delete/',DeletePostView.as_view(),name = "post-delete"),
     path('posts/category/<int:pk>/',views.show_categories,name = 'category'),
     path('posts/user/<int:pk>/',views.userProfile,name = 'profile'),
-    path('posts/search/',views.SearchFunction,name='search')
+    path('posts/search/',views.SearchFunction,name='search'),
+    path('posts/recommend', views.recommend_page, name = "recommend"),
 ]

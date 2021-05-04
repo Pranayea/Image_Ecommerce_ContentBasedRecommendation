@@ -25,10 +25,14 @@
         {% endfor %}
     {% endif %}
 </div>
+
+<div>
+    <a href="{% url 'posts:recommend' %}">For You</a>
+</div>
         
 <br>
 <div class="posts">
-    {% for post in posts %}    
+    {% for post in page_obj %}    
         <div class="posts-contents">
             <div class="posts-wrapper">
                 <a href="{% url 'posts:post-detail' post.id %}"><img src="{{post.image.url}}" alt="{{post.title}}"></a>
@@ -47,10 +51,8 @@
         </div>
     {% endfor %}
 </div>
-    {% include 'pagination.html' %}
 </div>
 </div>
 
-
-
+{% include 'pagination.html' %}
 {% endblock %}

@@ -31,7 +31,7 @@
         </div>
         <div class="col-1">
             {% if user.is_authenticated %}  
-                <h6>{{user.username}}</h6>
+                <h6>{{user.profile.img.url}}{{user.username}}</h6>
             {% endif %}
         </div>
     </div>

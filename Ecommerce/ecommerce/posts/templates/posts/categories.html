@@ -2,12 +2,10 @@
     
 {% block content %}
 
-{% include 'nav-bar.html' %}
-
 {{categories}}
 
 {% if posts %}
-    {% for post in posts %}
+    {% for post in page_obj %}
     <div class="posts-contents">
         <h1>{{post.title}}</h1>
         <p><a href="{% url 'posts:post-detail' post.id %}"><img src="{{post.image.url}}" alt="{{post.title}}"></a></p>

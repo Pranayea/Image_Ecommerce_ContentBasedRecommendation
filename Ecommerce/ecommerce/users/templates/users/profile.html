@@ -32,48 +32,81 @@
                 </div>  
                 </div>
             </div>
+            <div class="modal fade profile-form" tabindex="-1" role="dialog"
+            aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        
+        
+        
+        
+        
+        <div class="modal-dialog">
+        
+           <!-- Modal Content: begins -->
+           <div class="modal-content">
+        
+               <!-- Modal Header -->
+               <div class="modal-header">
+                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span></button>
+               </div>
+        
+               <!-- Modal Body -->
+               <div class="modal-body">
+                   <div class="body-message">
+        
+                        <form class="create-form">
+                            {%csrf_token%}
+                            {{u_form|crispy}}
+                            {{p_form|crispy}}
+                            <input type="submit" value="Update Profile">
+                       </form>
+                   </div>
+               </div>
+        
+            
+           <!-- Modal Content: ends -->
+        
+           <style>
+               .modal input{
+                width: 94%;
+               }
+        
+               .modal-body{
+                   padding-left: 20px;
+               }
+           </style>
         </div>
 </div>
 
-    <div class="modal fade profile-form" tabindex="-1" role="dialog"
-    aria-labelledby="myLargeModalLabel" aria-hidden="true">
+   
 
-<div class="modal-dialog">
+<div>
+    <div>
+        User Post
+        {% for post in posts %}
+        <div class="posts-contents">
+            <h1>{{post.title}}</h1>
+            <p><a href="{% url 'posts:post-detail' post.id %}"><img src="{{post.image.url}}" alt="{{post.title}}"></a></p>
+            <p>By <a href="#">{{post.user}}</a> on {{post.date|date:"F d, Y"}}</p>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div>
+        User Purchases:
+        {% for post in all_posts %}
+            {% if post in user.profile.product.all %}
+            <div class="posts-contents">
+                <h1>{{post.title}}</h1>
+                <p><a href="{% url 'posts:post-detail' post.id %}"><img src="{{post.image.url}}" alt="{{post.title}}"></a></p>
+                <p>By <a href="#">{{post.user}}</a> on {{post.date|date:"F d, Y"}}</p>
+                <a href="{{post.image.url}}" download><button class="btn-secondary">Download</button></a>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
 
-   <!-- Modal Content: begins -->
-   <div class="modal-content">
-
-       <!-- Modal Header -->
-       <div class="modal-header">
-           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">&times;</span></button>
-       </div>
-
-       <!-- Modal Body -->
-       <div class="modal-body">
-           <div class="body-message">
-
-                <form class="create-form">
-                    {%csrf_token%}
-                    {{u_form|crispy}}
-                    {{p_form|crispy}}
-                    <input type="submit" value="Update Profile">
-               </form>
-           </div>
-       </div>
-
-
-   </div>
-   <!-- Modal Content: ends -->
-
-   <style>
-       .modal input{
-        width: 94%;
-       }
-
-       .modal-body{
-           padding-left: 20px;
-       }
-   </style>
+</div>
 
 {% endblock %}

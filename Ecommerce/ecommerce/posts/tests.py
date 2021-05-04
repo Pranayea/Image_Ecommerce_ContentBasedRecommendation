@@ -10,7 +10,7 @@ class TestPostUrls(SimpleTestCase):
 
     def test_homepage_url_is_resolved(self):
         url = reverse("posts:homepage")
-        self.assertEqual(resolve(url).func.view_class,views.HomeListView)
+        self.assertEqual(resolve(url).func,views.HomeList)
 
     def test_createPost_url_is_resolved(self):
         url = reverse("posts:post-create")

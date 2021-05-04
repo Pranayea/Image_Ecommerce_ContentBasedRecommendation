@@ -14,8 +14,8 @@
                 </div>    
             </div>
         </div>
-        
-        <div class="col-12 ">
+        <p>Rating: {% if avgRate == null %}0{% else %}{{ avgRate }}{% endif %}</p>
+        <div class="col-12 ">                
             {% if post.user == user %}
                 <a href="{% url 'posts:post-update' post.id %}"><button class="btn-info">Update</button></a>
                 <a href="{% url 'posts:post-delete' post.id %}"><button class="btn-danger">Delete</button></a>
@@ -76,28 +76,3 @@
 {% endif %}
 
 {% endblock %}
-
-<!-- {% block script %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-    const form = document.getElementById('ratingForm')
-    form.addEventListener("submit",submitHandler);
-
-    function submitHandler(e){
-        e.preventDefault();
-
-        const review = $("#review").val();
-        const rating = $(".rating:checked").val();
-        
-        $.ajax({
-            type: 'POST',
-            url: "{% url 'posts:post-detail' post.id%}",
-            data: $("#ratingForm").serialize(),
-            dataType: 'json',
-            success: function(data){
-                console.log(data)
-                form.reset();
-            }
-        })
-    }
-</script>
-{% endblock %} -->
