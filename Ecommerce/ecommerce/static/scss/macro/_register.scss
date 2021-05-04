@@ -4,16 +4,26 @@
 }
 
 .register-banner{
-    width: 70%;
-    min-height: 70%;
-    float: right;
+    // width: 70%;
+    // min-height: 70%;
+    // float: right;
+    height: 89vh;
+    width: 100%;
+    img{
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
 }
-
+.register-wrapper-right{
+ 
+    padding: 40px 180px;
+    overflow: hidden;
+}
 .register-form{
-    margin-top: 80px;
+    // margin-top: 50px;
     padding: 15px;
-    width: 30%;
-    height: 10%;
+  
     border: .5px solid $support-color;
-    float: left;
+    
 }

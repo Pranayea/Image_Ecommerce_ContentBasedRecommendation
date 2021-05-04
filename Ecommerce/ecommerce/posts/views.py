@@ -17,14 +17,15 @@ from django.db.models import Avg,Q
 def HomeList(request):
     posts = Post.objects.all().order_by('-date')
     categories = Categories.objects.all()
-    filtered_orders = Order.objects.filter(owner=request.user.profile, is_ordered=False)
     current_order_products = []
-    if filtered_orders.exists():
-        user_order = filtered_orders[0]
-        user_order_items = user_order.items.all()
-        current_order_products = [product.product for product in user_order_items]
+    if request.user.is_authenticated:
+        filtered_orders = Order.objects.filter(owner=request.user.profile, is_ordered=False)
+        if filtered_orders.exists():
+            user_order = filtered_orders[0]
+            user_order_items = user_order.items.all()
+            current_order_products = [product.product for product in user_order_items]
 
-    paginator = Paginator(posts,2)
+    paginator = Paginator(posts,15)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -129,7 +130,7 @@ def show_categories(request,pk):
     categories = get_object_or_404(Categories,pk=pk)
     posts = Post.objects.filter(category=pk)
 
-    paginator = Paginator(posts,2)
+    paginator = Paginator(posts,12)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -153,15 +154,11 @@ def SearchFunction(request):
             results = Post.objects.filter(
                 Q(title__icontains=query) | Q(description__icontains=query) | Q(user__username__icontains=query) | Q(category__name__icontains=query)
             )
-            paginator = Paginator(results,2)
-            page_number = request.GET.get('page')
-            page_obj = paginator.get_page(page_number)
  
     context={
         'results':results.order_by(sorting),
         'query':query,
-        'sorting':sorting,
-        'page_obj':page_obj
+        'sorting':sorting
     }
     template = 'posts/search_results.html'
 

@@ -6,3 +6,19 @@
     padding: 30px;
     border-radius: 15%;
 }
+
+.google{
+    border: 1px solid #DB4437;
+    background: #DB4437;
+    color: white;
+    text-align: center;
+    padding: 8px;
+    &:hover{
+        text-decoration: none;
+        opacity: 0.9;
+    }
+}
+.google-icon{
+    margin-right: 10px;
+ 
+}

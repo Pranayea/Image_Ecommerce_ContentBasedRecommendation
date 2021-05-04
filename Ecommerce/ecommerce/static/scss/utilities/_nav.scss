@@ -1,5 +1,5 @@
 .menu{
-    height: 20px;
+    height: 25px;
     background-color: $background-color;
     border-bottom: 1px solid $primary-color;    
 
@@ -41,6 +41,7 @@
         border: 1px solid $primary-color;
         border-radius: 10px 0px 0px 10px;
         float: left;
+        padding: 12px;
     }
 
     button{

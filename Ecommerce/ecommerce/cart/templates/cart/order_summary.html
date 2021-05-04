@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<table class="table">
+<table class="table container">
     <thead class="thead-dark">
       <tr>
         <th scope="col">No.</th>
@@ -34,13 +34,16 @@
           </td>
       {% endif %}
         </tr>
+      
       </tbody> 
-      <span>
-        {% if order.get_cart_items %}
-          <a href="{% url 'cart:checkout' %}"><button>Proceed to Checkout</button></a>
-        {% endif %}
-      </span>
+     
   </table>
+
+  <div class="container d-flex justify-content-end" style="margin-top:20px;">
+    {% if order.get_cart_items %}
+      <a href="{% url 'cart:checkout' %}"><button class="btn btn-success btn-lg">Proceed to Checkout</button></a>
+    {% endif %}
+  </div>
 
 {% endblock %}
 

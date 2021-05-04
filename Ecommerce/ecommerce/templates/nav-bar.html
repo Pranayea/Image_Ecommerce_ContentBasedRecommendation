@@ -1,6 +1,6 @@
 <div class="container-fluid">
-    <div class="row  justify-content-end menu">
-        <div class="col-9"></div>
+    <div class="row   menu">
+        <div class="col-12 d-flex justify-content-end">
             {% if user.is_authenticated %}
             {% if user.is_superuser == True %}
             <a class="col-1 menu-items" href='/admin'>Admin</a>
@@ -12,15 +12,16 @@
             <a class="col-1 menu-items" href=" {% url 'users:login' %} ">Login</a>
             <a class="col-1 menu-items" href="{% url 'users:register' %}">Signup</a>
             {% endif %}
+            </div>
     </div>
 
-    <div class="row justify-content-end bottom-row">        
+    <div class="row justify-content-end bottom-row align-items-center">        
         <div class="col-3 logo">
             <div class="img"></div>
             <a class="logo-items" href="/">Home</a>
         </div>
 
-        <div class="col-7 search-bar">
+        <div class="col-6 search-bar">
             <form action="{% url 'posts:search' %}" method="get">
                 <input name="q" type="text" placeholder="Search..."><button type="submit"><i class="bi bi-search"></i></button>
             </form>
@@ -29,9 +30,9 @@
         <div class="col-1 cart">
             <a href="{% url 'cart:order-summary' %}"><i class="bi bi-cart2"></i></a>
         </div>
-        <div class="col-1">
+        <div class="col-2">
             {% if user.is_authenticated %}  
-                <h6>{{user.profile.img.url}}{{user.username}}</h6>
+                <h6>{{user.username}}</h6>
             {% endif %}
         </div>
     </div>

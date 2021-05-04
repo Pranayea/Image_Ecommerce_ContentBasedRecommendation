@@ -2,111 +2,136 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-    <div class="col-12">
-        {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">{{message}}</div>
-        {% endfor %}
-        {% endif %}
-    </div>
-    
-    
+<div class="col-12">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{message}}</div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+
 <div class="container">
-        <div class="row">
+    <div class="row" style="margin-bottom: 20px;">
+
+        <div class="col-12 profile-content d-flex justify-content-between align-items-center flex-column">
+            <div class="profile-content-image">
+                <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="This is Profile Pic">
+                <div class="profile-content-body d-flex flex-column align-items-center">
+                    <h2 class="account-heading">{{ user.username}}</h2>
+                    <p class=text-secondary>{{ user.email }}</p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{% url 'posts:post-create' %}" style="margin-right:20px ;"><button
+                        class="btn btn-primary">Post</button></a>
+
+                <div class="" data-toggle="modal" data-target=".profile-form">
+                    <button class="btn btn-outline-info"><i class="bi bi-gear-wide"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="col-4">
             
-            <div class="col-8 profile-content">
-                <div class="profile-content-image">
-                    <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="This is Profile Pic">
-                    <div class="profile-content-body">
-                        <h2 class="account-heading">{{ user.username}}</h2>
-                        <p class=text-secondary>{{ user.email }}</p>
-                    </div>
-                </div>
-            </div>
+        </div> -->
 
-            <div class="col-4">
-                    <a href="{% url 'posts:post-create' %}"><button class="btn btn-primary">Post</button></a>
+    </div>
+    <div class="modal fade profile-form" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
 
-                <div class="" data-toggle="modal" data-target=".profile-form" >
-                    <button><i class="bi bi-gear-wide"></i></button>
-                </div>  
-                </div>
-            </div>
-            <div class="modal fade profile-form" tabindex="-1" role="dialog"
-            aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        
-        
-        
-        
-        
         <div class="modal-dialog">
-        
-           <!-- Modal Content: begins -->
-           <div class="modal-content">
-        
-               <!-- Modal Header -->
-               <div class="modal-header">
-                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                       <span aria-hidden="true">&times;</span></button>
-               </div>
-        
-               <!-- Modal Body -->
-               <div class="modal-body">
-                   <div class="body-message">
-        
+
+            <!-- Modal Content: begins -->
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <div class="body-message">
+
                         <form class="create-form">
                             {%csrf_token%}
                             {{u_form|crispy}}
                             {{p_form|crispy}}
                             <input type="submit" value="Update Profile">
-                       </form>
-                   </div>
-               </div>
-        
-            
-           <!-- Modal Content: ends -->
-        
-           <style>
-               .modal input{
-                width: 94%;
-               }
-        
-               .modal-body{
-                   padding-left: 20px;
-               }
-           </style>
-        </div>
-</div>
+                        </form>
+                    </div>
+                </div>
 
-   
 
-<div>
-    <div>
-        User Post
-        {% for post in posts %}
-        <div class="posts-contents">
-            <h1>{{post.title}}</h1>
-            <p><a href="{% url 'posts:post-detail' post.id %}"><img src="{{post.image.url}}" alt="{{post.title}}"></a></p>
-            <p>By <a href="#">{{post.user}}</a> on {{post.date|date:"F d, Y"}}</p>
-        </div>
-        {% endfor %}
-    </div>
-    
-    <div>
-        User Purchases:
-        {% for post in all_posts %}
-            {% if post in user.profile.product.all %}
-            <div class="posts-contents">
-                <h1>{{post.title}}</h1>
-                <p><a href="{% url 'posts:post-detail' post.id %}"><img src="{{post.image.url}}" alt="{{post.title}}"></a></p>
-                <p>By <a href="#">{{post.user}}</a> on {{post.date|date:"F d, Y"}}</p>
-                <a href="{{post.image.url}}" download><button class="btn-secondary">Download</button></a>
+                <!-- Modal Content: ends -->
+
+                <style>
+                    .modal input {
+                        width: 94%;
+                    }
+
+                    .modal-body {
+                        padding-left: 20px;
+                    }
+                </style>
             </div>
-            {% endif %}
-        {% endfor %}
+        </div>
+
     </div>
-</div>
+
+
+    <div class="container">
+        <nav class="nav nav-pills flex-column flex-sm-row">
+            <a class="flex-sm-fill text-sm-center nav-link active" data-toggle="tab" href="#1a">User Post</a>
+            <a class="flex-sm-fill text-sm-center nav-link" data-toggle="tab" href="#2a">User Purchases</a>
+
+        </nav>
+
+
+        <div class="tab-content clearfix">
+            <div class="tab-pane active" id="1a">
+                <div class="profile-contents">
+                    <div>
+                        <h1 class="profile-title">User Post</h1>
+                        {% for post in posts %}
+                        <div class="posts-contents">
+                            <h1>{{post.title}}</h1>
+                            <p><a href="{% url 'posts:post-detail' post.id %}"><img src="{{post.image.url}}"
+                                        alt="{{post.title}}"></a></p>
+                            <p>By <a href="#">{{post.user}}</a> on {{post.date|date:"F d, Y"}}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="2a">
+                <div class="profile-contents">
+                    <div>
+                        <h1 class="profile-title">User Purchases:</h1>
+
+                        {% for post in all_posts %}
+                        {% if post in user.profile.product.all %}
+                        <div class="posts-contents">
+                            <h1>{{post.title}}</h1>
+                            <p><a href="{% url 'posts:post-detail' post.id %}"><img src="{{post.image.url}}"
+                                        alt="{{post.title}}"></a></p>
+                            <p>By <a href="#">{{post.user}}</a> on {{post.date|date:"F d, Y"}}</p>
+                            <a href="{{post.image.url}}" download><button class="btn-secondary">Download</button></a>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 
 </div>
+
+
 
 {% endblock %}

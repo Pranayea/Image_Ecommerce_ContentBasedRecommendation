@@ -3,9 +3,11 @@
 {% block content %}
 
 
+<div class="container">
+  <h4>Order Summary</h4>
 
-<table class="table">
-    <h4>Order Summary</h4>
+<table class="table container">
+ 
     <thead class="thead-dark">
       <tr>
         <th scope="col">No.</th>
@@ -36,10 +38,12 @@
       {% endif %}
         </tr>
       </tbody> 
-      <form action="{% url 'cart:checkout-process' order.id %}" method="POST">
-        {% csrf_token %}
-        <button type="submit">Checkout</button>
-      </form>
+      
   </table>
+  <form action="{% url 'cart:checkout-process' order.id %}" method="POST" class=" d-flex justify-content-end" style="margin-top:20px;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success btn-lg">Checkout</button>
+  </form>
+</div>
 
 {% endblock %}

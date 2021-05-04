@@ -1,18 +1,19 @@
 {% extends 'index.html' %}
     
 {% block content %}
-
-{{categories}}
+<div class="container">
+<div class="category-title"><h6>{{categories}}</h6></div>
 
 {% if posts %}
     {% for post in page_obj %}
     <div class="posts-contents">
-        <h1>{{post.title}}</h1>
-        <p><a href="{% url 'posts:post-detail' post.id %}"><img src="{{post.image.url}}" alt="{{post.title}}"></a></p>
+        <h1 >{{post.title}}</h1>
+        <p><a href="{% url 'posts:post-detail' post.id %}"><img src="{{post.image.url}}" alt="{{post.title}}" class="category-img"></a></p>
         <p>By {{post.user}} on {{post.date|date:"F d, Y"}}</p>
     </div>
     {% endfor %}
 {% else %}    
     <h1>No Items Available In This Category Right Now</h1>
 {%endif%}
+</div>
 {% endblock %}

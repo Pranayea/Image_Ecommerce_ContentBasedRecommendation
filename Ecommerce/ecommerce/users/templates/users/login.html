@@ -1,27 +1,52 @@
 {% extends 'index.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+{% load static %}
 {% load socialaccount %}
-
-<div class="col-md-8">
+<div class="register-wrapper container-fluid">
+<div class="row">
   {% if messages %}
-    {% for message in messages %}
-      <div class="alert alert-{{ message.tags }}">{{message}}</div>
-    {% endfor %}
+  <div class="col-md-8">
+    
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{message}}</div>
+      {% endfor %}
+  
+  </div>
   {% endif %}
 </div>
-
-<div class="login-section">
-  <form method="post" class="form-inline">
-      {% csrf_token %}
-
-      {{form|crispy}}
-      <br>
-    <!-- {{form}} -->
-    <input type="submit" value="Login" class="btn btn-outline-primary">
-    <a href="{% provider_login_url "google" %}">Google</a>
-    <a href="{% url 'users:register' %}">Sign Up</a>
-  </form>
+  <div class="register-banner col-lg-6">
+    <img src="{% static 'svg/personal_information.svg' %}" alt="Personal Information">
+  </div>
+  
+  <div class="col-lg-6 register-wrapper-right" style="
+  padding: 40px 180px;
+">
+    <div class="register-form ">
+      <form method="post" class=" login-form">
+        {% csrf_token %}
+  
+        {{form|crispy}}
+        <br>
+      <!-- {{form}} -->
+    <div class="form-group">
+      <input type="submit" value="Login" class="btn btn-outline-primary btn-block">
+    </div>
+    <div class="form-group">
+      <a href="{% provider_login_url "google" %}" style="text-decoration: none;"><div class="google"><i class="bi bi-google google-icon"></i>Login with Google</div></a>
+    </div>
+    <a href="{% url 'users:register' %}">Don't have an account? Sign Up</a>
+    </form>
+    
+    
+    
+    </div>
+  </div>
+ 
 </div>
 
+
+
+
 {% endblock %}
+

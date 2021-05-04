@@ -2,16 +2,19 @@
 .detail{
     margin-left: 30px;
 }
-
+.detail-posts{
+    margin-bottom: 20px;
+}
 .detail-user-ratings{
     margin-left: 30px;
     padding:10px ;
 }
 .detail-posts-wrapper{
     padding:10px;
-    width: 95%;
-    height: 70%;
-    border: 2px solid $secondary-color;
+    // width: 95%;
+    // height: 70%;
+    object-fit: cover;
+    // border: 2px solid $secondary-color;
 
     img{
         width: 100%;
@@ -22,17 +25,21 @@
 
 .user-reviews{
     color:$font-color;
-    border-bottom: 1px solid $primary-color;
+    border-bottom: 1px solid #c0c0c0;
 }
 
 .ratingStars{
-    height: auto;
-    padding: 3px 15px;
+    // height: auto;
+    // padding: 3px 15px;
+    // float: left;
+    width: 18%;
+    margin-left: -40px;
 }
 
 .ratingStars:not(:checked) > input {
     position: absolute;
-    top: -9999px;
+    // top: -9999px;
+    visibility: hidden;
 }
 
 .ratingStars:not(:checked) > label {
@@ -75,5 +82,23 @@
 .user-ratings-form{
     display: flex;
     flex-direction: row;
-    border: 1px groove $primary-color;
+    // border: 1px groove $primary-color;
+}
+
+.ratingForm{
+    width: 100%;
+}
+
+.ratingForm-input{
+    textarea{
+        height: 100px;
+    }
+}
+
+.detail{
+    .modal-content{margin-bottom: 20px;}
+}
+
+.post-form{
+    margin-bottom: 20px;
 }

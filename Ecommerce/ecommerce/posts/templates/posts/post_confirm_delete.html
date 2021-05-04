@@ -1,14 +1,13 @@
 {% extends 'index.html' %}
 
 {% block content %}
-{% include 'nav-bar.html' %}
-<div>
+<div class="container">
     <form method="post">
         {% csrf_token %}
         <h2>Confirmation on the post deletion of the following post?</h2>
-        <p><img src="{{post.image.url}}" alt="{{post.title}}"></p>
-        <button type="submit" class="">Confirm Delete</button>
-        <a href="{% url 'posts:post-detail' post.id %}">Cancel</a>
+        <p><img src="{{post.image.url}}" alt="{{post.title}}" style="width: 100%;"></p>
+        <button type="submit" class="btn btn-danger btn-lg">Confirm Delete</button>
+        <a href="{% url 'posts:post-detail' post.id %}" class="btn btn-lg btn-info">Cancel</a>
 
     </form>
 </div>

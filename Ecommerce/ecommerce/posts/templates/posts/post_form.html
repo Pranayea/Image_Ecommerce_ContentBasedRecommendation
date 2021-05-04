@@ -3,15 +3,15 @@
 {% block content %}
 
 
-{% include 'nav-bar.html' %}
-<div class="post-section">
-  <form method="post" class="form-inline" enctype="multipart/form-data">
+<div class="post-section container">
+  <form method="post" class="post-form" enctype="multipart/form-data">
+  
       {% csrf_token %}
 
       {{form|crispy}}
       <br>
     <!-- {{form}} -->
-    <input type="submit" value="Post" class="btn btn-outline-primary">
+    <input type="submit" value="Post" class="btn btn-primary btn-block">
   </form>
 </div>
 
