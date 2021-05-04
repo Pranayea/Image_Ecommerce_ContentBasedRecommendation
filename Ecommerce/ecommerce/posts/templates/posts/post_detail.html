@@ -9,9 +9,10 @@
                 <div class="detail-posts-wrapper">
                     <img src="{{post.image.url}}" alt="{{post.title}}" class="card-img-top">
                     <div class="card-body">
-                        <h5 class="title">{{post.title}} </h5>
-                        <p>Rating: {% if avgRate == null %}0{% else %}{{ avgRate }}{% endif %}</p>
-                        <p>Rs. {{post.price}}</p>
+                        <h5 class="title">Title: {{post.title}} </h5>
+                        <p><strong>Description: </strong>{{post.description}}</p>
+                        <p><strong>Rating: </strong> {% if avgRate == null %}0{% else %}{{ avgRate }}{% endif %}</p>
+                        <p><strong>Rs.</strong> {{post.price}}</p>
                         <p></p>By <a href="{% url 'posts:profile' post.user.id %}">{{post.user}}</a> on
                         {{post.date|date:"F d, Y"}}</p>
                         <div class="col-12 ">

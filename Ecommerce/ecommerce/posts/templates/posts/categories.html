@@ -9,11 +9,13 @@
     <div class="posts-contents">
         <h1 >{{post.title}}</h1>
         <p><a href="{% url 'posts:post-detail' post.id %}"><img src="{{post.image.url}}" alt="{{post.title}}" class="category-img"></a></p>
-        <p>By {{post.user}} on {{post.date|date:"F d, Y"}}</p>
+        <p>By  <a href="{% url 'posts:profile' post.user.id %}">{{post.user}}</a> on {{post.date|date:"F d, Y"}}</p>
     </div>
     {% endfor %}
 {% else %}    
     <h1>No Items Available In This Category Right Now</h1>
 {%endif%}
+
+{% include 'pagination.html' %}
 </div>
 {% endblock %}
