@@ -12,6 +12,7 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.db.models import Avg,Q
 from .BOWrecommend import recommend
+from .Tfrecommendor import recommendTdidf
 # Create your views here.
 
 #homepage
@@ -26,6 +27,17 @@ def HomeList(request):
             user_order_items = user_order.items.all()
             current_order_products = [product.product for product in user_order_items]
 
+    #for recommendation
+    user = request.user
+    review_from_user = Review.objects.filter(user=user).first()
+    title_for_user = review_from_user.post.title
+    recommendations = recommendTdidf(title_for_user)
+    count = len(recommendations)
+    post_list = []
+    for r in recommendations:
+        posts_title = Post.objects.get(title=r)
+        post_list.append(posts_title)
+
     paginator = Paginator(posts,15)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -35,7 +47,8 @@ def HomeList(request):
         'categories':categories,
         'current_order_products': current_order_products,
         'title':'Homepage',
-        'page_obj': page_obj
+        'page_obj': page_obj,
+        'post_list': post_list
     }
 
     return render(request,"posts/homepage.html",context)

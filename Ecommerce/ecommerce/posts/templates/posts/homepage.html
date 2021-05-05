@@ -25,15 +25,45 @@
         {% endfor %}
     {% endif %}
 </div>
+
+
 {% if user.is_authenticated %}
-<div style="margin: 10px 0;">
-    <a href="{% url 'posts:recommend' %}">For You</a>
+{% if post_list %}
+<h4> Recommendated For You </h4>
+<div class="posts">
+    {% for post in post_list %}    
+        <div class="posts-contents">
+            <div class="posts-wrapper">
+                <a href="{% url 'posts:post-detail' post.id %}"><img src="{{post.image.url}}" alt="{{post.title}}"></a>
+                <div class="post-description">
+                    <h6><a  class="title" href="{% url 'posts:post-detail' post.id %}">{{post.title}} </a></h6>
+                    <h6><strong>Rs. {{post.price}}</strong></h6>
+                    {% if user.is_authenticated %}
+                        {% if post in user.profile.product.all %}
+                            <div class="d-flex justify-content-between align"><span> You own this </span><a href="{{post.image.url}}" download><button class="btn btn-outline-secondary btn-lg">Download</button></a></div>
+                        {% elif post in current_order_products %}
+                            <a href="{% url 'cart:order-summary'%}"><button class="btn-primary btn btn-lg">Go to Cart</button></a>
+                        {% else %}
+                            <a href="{% url 'cart:add-to-cart' post.id %}"><button class="btn btn-primary btn-lg">Add to Cart</button></a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>    
+        </div>
+    {% endfor %}
 </div>
+
+<div style="margin: 10px 0;">
+    <a href="{% url 'posts:recommend' %}"><h2>More Recommendation</h2></a>
+</div>
+{% endif %}
+
 {% endif %}
 
         
 <br>
 <!-- Post Gird Start -->
+<h4> New Images </h4>
 <div class="posts">
     {% for post in page_obj %}    
         <div class="posts-contents">
