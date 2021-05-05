@@ -175,13 +175,22 @@ def recommend_page(request):
     posts = Post.objects.all()
     post_list = []
     for r in recommendations:
-        posts_title = Post.objects.filter(title=r)
+        posts_title = Post.objects.get(title=r)
         post_list.append(posts_title)
+
+    current_order_products = []
+    if request.user.is_authenticated:
+        filtered_orders = Order.objects.filter(owner=request.user.profile, is_ordered=False)
+        if filtered_orders.exists():
+            user_order = filtered_orders[0]
+            user_order_items = user_order.items.all()
+            current_order_products = [product.product for product in user_order_items]
 
     context = {
         'title': title_for_user,
         'post_list': post_list,
         'count':count,
-        'posts' : posts
+        'posts' : posts,
+        'current_order_products': current_order_products
     }
     return render(request,"posts/recommendation.html",context)

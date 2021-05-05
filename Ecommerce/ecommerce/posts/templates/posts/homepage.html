@@ -25,10 +25,12 @@
         {% endfor %}
     {% endif %}
 </div>
-
+{% if user.is_authenticated %}
 <div style="margin: 10px 0;">
     <a href="{% url 'posts:recommend' %}">For You</a>
 </div>
+{% endif %}
+
         
 <br>
 <!-- Post Gird Start -->

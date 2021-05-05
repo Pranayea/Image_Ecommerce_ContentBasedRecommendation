@@ -11,6 +11,7 @@
                     <div class="card-body">
                         <h5 class="title">Title: {{post.title}} </h5>
                         <p><strong>Description: </strong>{{post.description}}</p>
+                        <p><strong>Category: </strong>{{post.category}}</p>
                         <p><strong>Rating: </strong> {% if avgRate == null %}0{% else %}{{ avgRate }}{% endif %}</p>
                         <p><strong>Rs.</strong> {{post.price}}</p>
                         <p></p>By <a href="{% url 'posts:profile' post.user.id %}">{{post.user}}</a> on
