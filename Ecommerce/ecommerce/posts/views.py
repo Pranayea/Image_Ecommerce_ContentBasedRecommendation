@@ -11,6 +11,7 @@ from django.utils.text import slugify
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.db.models import Avg,Q
+from .BOWrecommend import recommend
 # Create your views here.
 
 #homepage
@@ -166,4 +167,21 @@ def SearchFunction(request):
 
         
 def recommend_page(request):
-    return render(request,"posts/recommendation.html")
+    user = request.user
+    review_from_user = Review.objects.filter(user=user).first()
+    title_for_user = review_from_user.post.title
+    recommendations = recommend(title_for_user)
+    count = len(recommendations)
+    posts = Post.objects.all()
+    post_list = []
+    for r in recommendations:
+        posts_title = Post.objects.filter(title=r)
+        post_list.append(posts_title)
+
+    context = {
+        'title': title_for_user,
+        'post_list': post_list,
+        'count':count,
+        'posts' : posts
+    }
+    return render(request,"posts/recommendation.html",context)
