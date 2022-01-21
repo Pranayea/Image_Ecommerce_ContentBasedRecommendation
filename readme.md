@@ -1,6 +1,6 @@
 # Image Ecommerce Using Django with Recommendation
 
-![Homepage](https://github.com/Pranayea/Image_Ecommerce_ContentBasedRecommendation/tree/master/pictures/loggedin-homepage.png)
+![Homepage](pictures/loggedin-homepage.png)
 
 ## Before you start
 
@@ -38,30 +38,42 @@ pip3 install (the following individually)
 * django-allauth
 * Pillow
 
+
 ```
+
+---
+
 Here, are some demo pages
 
 SignUp
 
-![SignUp](https://github.com/Pranayea/Image_Ecommerce_ContentBasedRecommendation/tree/master/pictures/registeration.png)
+![SignUp](pictures/registeration.png)
 
 SignIn
 
-![SignIn](https://github.com/Pranayea/Image_Ecommerce_ContentBasedRecommendation/tree/master/pictures/lgon.png)
+![SignIn](pictures/lgon.png)
 
 Homepage
 
-![Homepage](https://github.com/Pranayea/Image_Ecommerce_ContentBasedRecommendation/tree/master/pictures/homepage-logout.png)
+![Homepage](pictures/homepage-logout.png)
 
 Logged In Homepage 
 
-![Logged In Homepage](https://github.com/Pranayea/Image_Ecommerce_ContentBasedRecommendation/tree/master/pictures/loggedin-homepage.png)
+![Logged In Homepage](pictures/loggedin-homepage.png)
 
 Post Detail
 
-![Detail](https://github.com/Pranayea/Image_Ecommerce_ContentBasedRecommendation/tree/master/pictures/detail.png)
+![Detail](pictures/detail.png)
 
 Cart
 
-![Cart](https://github.com/Pranayea/Image_Ecommerce_ContentBasedRecommendation/tree/master/pictures/cart.png)
+![Cart](pictures/cart.png)
 
+---
+
+## About Recommendation System
+### __Content-Based-Recommendation with TF/IDF__
+
+The recommendation uses the description and title from each post, processes TF/IDF and uses it to calculate the cosine-similarity of each post.
+
+The recommendation right now does not start until and unless the user provides a rating/review to the post in question. The rated start should be 3 or above.
