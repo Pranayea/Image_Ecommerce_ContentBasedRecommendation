@@ -1,6 +1,6 @@
 # Image Ecommerce Using Django with Recommendation
 
-![Homepage]()
+![Homepage](https://github.com/Pranayea/Image_Ecommerce_ContentBasedRecommendation/tree/master/pictures/loggedin-homepage.png)
 
 ## Before you start
 
@@ -43,25 +43,25 @@ Here, are some demo pages
 
 SignUp
 
-![SignUp]()
+![SignUp](https://github.com/Pranayea/Image_Ecommerce_ContentBasedRecommendation/tree/master/pictures/registeration.png)
 
 SignIn
 
-![SignIn]()
+![SignIn](https://github.com/Pranayea/Image_Ecommerce_ContentBasedRecommendation/tree/master/pictures/lgon.png)
 
 Homepage
 
-![Homepage]()
+![Homepage](https://github.com/Pranayea/Image_Ecommerce_ContentBasedRecommendation/tree/master/pictures/homepage-logout.png)
 
 Logged In Homepage 
 
-![Logged In Homepage]()
+![Logged In Homepage](https://github.com/Pranayea/Image_Ecommerce_ContentBasedRecommendation/tree/master/pictures/loggedin-homepage.png)
 
 Post Detail
 
-![Detail]()
+![Detail](https://github.com/Pranayea/Image_Ecommerce_ContentBasedRecommendation/tree/master/pictures/detail.png)
 
 Cart
 
-![Cart]()
+![Cart](https://github.com/Pranayea/Image_Ecommerce_ContentBasedRecommendation/tree/master/pictures/cart.png)
 
