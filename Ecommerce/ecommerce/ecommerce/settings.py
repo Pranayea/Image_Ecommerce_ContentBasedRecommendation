@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     #for forms
     'crispy_forms',
     #for categories,
-    'mptt',
+    # 'mptt',
     #for sass processing
     'sass_processor',
 

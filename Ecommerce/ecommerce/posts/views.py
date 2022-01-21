@@ -11,7 +11,7 @@ from django.utils.text import slugify
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.db.models import Avg,Q
-from .BOWrecommend import recommend
+# from .BOWrecommend import recommend
 from .Tfrecommendor import recommendTdidf
 # Create your views here.
 
@@ -20,23 +20,24 @@ def HomeList(request):
     posts = Post.objects.all().order_by('-date')
     categories = Categories.objects.all()
     current_order_products = []
+    post_list = []
     if request.user.is_authenticated:
         filtered_orders = Order.objects.filter(owner=request.user.profile, is_ordered=False)
+        #for recommendation
+        user = request.user
+        review_from_user = Review.objects.filter(user=user).first()
+        title_for_user = review_from_user.post.title
+        recommendations = recommendTdidf(title_for_user)
+        count = len(recommendations)
+        post_list = []
+        for r in recommendations:
+            posts_title = Post.objects.get(title=r)
+            post_list.append(posts_title)
+
         if filtered_orders.exists():
             user_order = filtered_orders[0]
             user_order_items = user_order.items.all()
             current_order_products = [product.product for product in user_order_items]
-
-    #for recommendation
-    user = request.user
-    review_from_user = Review.objects.filter(user=user).first()
-    title_for_user = review_from_user.post.title
-    recommendations = recommendTdidf(title_for_user)
-    count = len(recommendations)
-    post_list = []
-    for r in recommendations:
-        posts_title = Post.objects.get(title=r)
-        post_list.append(posts_title)
 
     paginator = Paginator(posts,15)
     page_number = request.GET.get('page')
@@ -183,7 +184,7 @@ def recommend_page(request):
     user = request.user
     review_from_user = Review.objects.filter(user=user).first()
     title_for_user = review_from_user.post.title
-    recommendations = recommend(title_for_user)
+    recommendations = recommendTdidf(title_for_user)
     count = len(recommendations)
     posts = Post.objects.all()
     post_list = []

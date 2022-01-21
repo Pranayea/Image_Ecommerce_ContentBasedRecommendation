@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from .models import Post,Categories,Review
 import numpy as np
 import pandas as pd
-from rake_nltk import Rake
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
 
