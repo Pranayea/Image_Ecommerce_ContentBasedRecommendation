@@ -1,6 +1,6 @@
 # Image Ecommerce Using Django with Recommendation
 
-! [Homepage](https://github.com/Pranayea/Image_Ecommerce_ContentBasedRecommendation/tree/master/pictures/loggedin-homepage.png)
+[Homepage](https://github.com/Pranayea/Image_Ecommerce_ContentBasedRecommendation/tree/master/pictures/loggedin-homepage.png)
 
 ## Before you start
 
